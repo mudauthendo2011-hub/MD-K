@@ -63,9 +63,9 @@ kord({
       const formattedCmds = await changeFont(cmdList, getRandomFont())
       
       let menu = `\`\`\`┌───── ⨺⃝Х ──────┐
- ✇ ▸ Category: ${actualType.toUpperCase()}
- ✇ ▸ Commands: ${types[actualType].length}
- ✇ ▸ Prefix: ${prefix}
+ Category: ${actualType.toUpperCase()}
+ Commands: ${types[actualType].length}
+ Prefix: ${prefix}
 └───────────────────┘\`\`\`
 ${readmore}
 
@@ -85,9 +85,9 @@ Tip: Use ${prefix}menu to see all categories`
       
       const styledBody = await changeFont(bodyContent, getRandomFont())
       const final = `\`\`\`┌────── ⨺⃝Х ──────┐
- ✇ ▸ Category: ${actualType.toUpperCase()}
- ✇ ▸ Commands: ${types[actualType].length}
- ✇ ▸ Prefix: ${prefix}
+ Category: ${actualType.toUpperCase()}
+ Commands: ${types[actualType].length}
+ Prefix: ${prefix}
 └──────────────────────┘\`\`\`
 ${readmore}
 
