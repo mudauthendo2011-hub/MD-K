@@ -234,7 +234,7 @@ kord({
 })
 
 kord({
-        cmd: "blocklist",
+        cmd: "blocklist|listblock",
         desc: "fetches list of blocked numbers",
         fromMe: true,
         type: 'user',
@@ -242,7 +242,7 @@ kord({
   try {
     const num = await m.client.fetchBlocklist();
     if (!num?.length) return await m.send("_No blocked users found!_");
-    const blockList = `_*❏ Block List ❏*_\n\n${num.map(n => `➟ +${n.replace('@s.whatsapp.net', '')}`).join('\n')}`;
+    const blockList = `_*彡 Block List ❏*_\n\n${num.map(n => `➟ +${n.replace('@s.whatsapp.net', '')}`).join('\n')}`;
     return await m.send(blockList);
   } catch (e) {
     console.log("cmd error", e)
@@ -541,7 +541,7 @@ kord({
 })
 
 kord({
-  cmd: "mute-user",
+  cmd: "mute",
   desc: "mute a user or a sticker",
   fromMe: true,
   type: "bot",
@@ -577,7 +577,7 @@ kord({
 
 
 kord({
-  cmd: "unmute-user",
+  cmd: "unmute",
   desc: "unmute a user or sticker",
   fromMe: true,
   type: "bot",
