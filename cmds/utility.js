@@ -215,7 +215,7 @@ cmd: "temp-url|temp-upload",
 })
 
 kord({
-cmd: "readmore",
+cmd: "readmore|rdm",
         desc: "adds readmore to given text",
         fromMe: wtype,
         type: "utilities",
@@ -225,7 +225,7 @@ cmd: "readmore",
     if (!txt) return m.send(`_*provide or reply some text*_\n_example: ${prefix}readmore Hello this is visible |readmore| this is hidden_`);
 
     const readmoreChar = String.fromCharCode(8206).repeat(4001);
-    const rtext = txt.replace(/(\|readmore\|)/i, readmoreChar);
+    const rtext = txt.replace(/(\|rdm\|)/i, readmoreChar);
     return await m.send(rtext);
   } catch (e) {
     console.log("cmd error", e)
@@ -730,7 +730,7 @@ cmd: "bible",
 })
 
 kord({
-cmd: "font",
+cmd: "font|fancy",
   desc: "change font of text",
   fromMe: wtype,
   type: "utilities",
