@@ -1,6 +1,6 @@
 /* 
- * Copyright © 2025 Mirage
- * This file is part of Kord and is licensed under the GNU GPLv3.
+ * Copyright © 2025 Mudau thendo
+ * This file is part of MD-K and is licensed under the GNU GPLv3.
  * And I hope you know what you're doing here.
  * You may not use this file except in compliance with the License.
  * See the LICENSE file or https://www.gnu.org/licenses/gpl-3.0.html
@@ -225,7 +225,7 @@ cmd: "kick",
 })
 
 kord({
-cmd: "promote",
+cmd: "promote|pro",
   desc: "promote a member to admin",
   fromMe: wtype,
   gc: true,
@@ -248,7 +248,7 @@ cmd: "promote",
 })
 
 kord({
-cmd: "demote",
+cmd: "demote|de|dem",
   desc: "demote an admin to member",
   fromMe: wtype,
   gc: true,
@@ -257,7 +257,7 @@ cmd: "demote",
 }, async (m, text) => {
   try {
     var botAd = await isBotAdmin(m);
-    if (!botAd) return await m.send("_*✘Bot Needs To Be Admin!*_");
+    if (!botAd) return await m.send("_*do i look like admin to you*_");
     var user = m.mentionedJid[0] || m.quoted?.sender || text
     if (!user) return await m.send("✘ Reply to or mention an admin")
     if(!await isadminn(m, user)) return await m.send("✘ Member is not admin")
@@ -271,7 +271,7 @@ cmd: "demote",
 })
 
 kord({
-cmd: "mute",
+cmd: "close",
   desc: "mute a group to allow only admins to send message",
   fromMe: wtype,
   gc: true,
@@ -282,7 +282,7 @@ cmd: "mute",
     var botAd = await isBotAdmin(m);
     if (!botAd) return await m.send("✘_*Bot Needs To Be Admin!*_");
     await m.client.groupSettingUpdate(m.chat, "announcement");
-    return await m.send("✓ Group Muted");
+    return await m.send("✓ Group close all members cant chat");
   } catch (e) {
     console.log("cmd error", e)
     return await m.sendErr(e)
@@ -290,7 +290,7 @@ cmd: "mute",
 })
 
 kord({
-cmd: "unmute",
+cmd: "open",
   desc: "unmute a group to allow all members to send message",
   fromMe: wtype,
   gc: true,
@@ -301,7 +301,7 @@ cmd: "unmute",
     var botAd = await isBotAdmin(m);
     if (!botAd) return await m.send("✘_*Bot Needs To Be Admin!*_");
     await m.client.groupSettingUpdate(m.chat, "not_announcement");
-    return await m.send("✓ Group Unmuted");
+    return await m.send("✓ Group Open members can now send message");
   } catch (e) {
     console.log("cmd error", e)
     return await m.sendErr(e)
@@ -348,7 +348,7 @@ cmd: "revoke",
 })
 
 kord({
-  cmd: "tag",
+  cmd: "tag|tell|tell-everyone",
   desc: "tag all memebers/admins/me/text",
   fromMe: wtype,
   gc: true,
@@ -368,14 +368,14 @@ kord({
 
     if (text === "all" || text === "everyone") {
       participants.forEach((p, i) => {
-        msg += `❐ ${i + 1}. @${(p.jid || p.phoneNumber).split('@')[0]}\n`
+        msg += `彡 ${i + 1}. @${(p.jid || p.phoneNumber).split('@')[0]}\n`
       })
       await m.send(msg, { mentions: participants.map(a => a.jid || a.phoneNumber) })
     }
 
     else if (text === "admin" || text === "admins") {
       admins.forEach((admin, i) => {
-        msg += `❐ ${i + 1}. @${admin.split('@')[0]}\n`
+        msg += `彡 ${i + 1}. @${admin.split('@')[0]}\n`
       })
       return await m.send(msg, { mentions: admins })
     }
@@ -492,7 +492,7 @@ cmd: "unlock",
 })
 
 kord({
-  cmd: "ginfo",
+  cmd: "ginfo|aboutgc",
   desc: "get group info of a group",
   fromMe: wtype,
   type: "group",
@@ -716,7 +716,7 @@ Warning(s): (${cCount}/${maxC})`
 
 
 kord({
-cmd: "events|gcevent|grpevents",
+cmd: "events|gcevent|grpevents|evt",
   desc: "manage group events settings",
   gc: true,
   adminOnly: true,
@@ -730,11 +730,26 @@ cmd: "events|gcevent|grpevents",
     var gdata = await getData('group_events') || {}
     const jid = m.chat
     
-    const defaultWelcome = `@pp ╭━━━々 𝚆 𝙴 𝙻 𝙲 𝙾 𝙼 𝙴 々━━━╮
-┃ ➺ *々 Welcome @user! to @gname*
-┃ ➺ *々 Members: @count*
-┃ ➺ We Hope You Have A Nice Time Here!
-┗━━━━━━━━━━━━━━━━━━━━━━━━━━━`
+    const defaultWelcome = `@pp ∘₊✧──────✧₊∘
+
+      *@gname*
+
+∘₊✧──────✧₊∘
+
+*USER:* @user 
+*TIME* @time
+*MEMBER:* @count
+
+✧────⋆⋅☆⋅⋆────✧
+
+ *OWNER:* Mudau thendo
++27799648540 
+
+✧────⋆⋅☆⋅⋆────✧
+
+         @gdesc
+
+∘₊✧──────✧₊∘`w
     
     const defaultGoodbye = `@pp ╭━━━々 𝙶 𝙾 𝙾 𝙳 𝙱 𝚈 𝙴 々━━━╮
 ┃ ➺ *々 @user! left @gname!*
@@ -1299,12 +1314,12 @@ Words: ${dw.words.join(", ") || "None"}
   if (ew.length > 0 && newWords.length > 0) {
     dw.words.push(...newWords)
     await storeData("antiword", aw)
-    return await m.send(`\`\`\`➻ Added: ${newWords.join(", ")}\n➻ Already existed: ${ew.join(", ")}\`\`\``)
+    return await m.send(`\`\`\`彡 Added: ${newWords.join(", ")}\n➻ Already existed: ${ew.join(", ")}\`\`\``)
   }
   if (wrds.length === 1) {
     dw.words.push(wrds[0])
     await storeData("antiword", aw)
-    return await m.send(`\`\`\`➻ Word "${wrds[0]}" has been added\`\`\``)
+    return await m.send(`\`\`\`彡 Word "${wrds[0]}" has been added\`\`\``)
   }
   dw.words.push(...wrds)
   await storeData("antiword", aw)
@@ -1387,7 +1402,7 @@ cmd: "warn",
     if (aa.timestamp) { 
       await m.send(m.quoted, {}, "delete")
       return await m.send(
-    `┏┅┅ 『 *WARNING* 』┅┅┓
+    `┏┅┅ 『 *⨺⃝Х WARNING ⨺⃝Х* 』┅┅┓
 ┇ *User:* @${user.split("@")[0]}
 ┇ *Reason:* ${text ? text : "not specified"}
 ┇ *WarnCounts:* ${wc}
@@ -1573,7 +1588,7 @@ const formatTimeAgo = sec => {
 }
 
 kord({
-  cmd: "msgs",
+  cmd: "msgs|allmsgs",
   desc: "Show message stats",
   fromMe: true,
   type: "tools",
@@ -2161,7 +2176,7 @@ const listOnlineOffline = async (m, text, store, mode, sock) => {
 }
 
 kord({
-  cmd: "listonline",
+  cmd: "listonline|online",
   desc: "List online users by interval",
   fromMe: wtype,
   type: "tools",
@@ -2170,7 +2185,7 @@ kord({
 }, async (m, text, c, store) => listOnlineOffline(m, text, store, "online", m.client))
 
 kord({
-  cmd: "listoffline",
+  cmd: "listoffline|offline",
   desc: "List offline users by interval",
   fromMe: wtype,
   type: "tools",
