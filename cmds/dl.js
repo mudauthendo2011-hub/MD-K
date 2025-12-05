@@ -120,8 +120,8 @@ kord({
   const englishSub = data.downloadLinks.find(d => d.language.toLowerCase().includes("english"));
   if (!englishSub)
     return await m.send("_English subtitle not found._");
-  const caption = `❑ Title: ${data.title}
-❑ Language: English
+  const caption = `彡 Title: ${data.title}
+彡 Language: English
 
 ${config().CAPTION}`;
   const buffer = await getBuffer(englishSub.url);
@@ -169,7 +169,7 @@ cmd: "subtitlesearch|subtitles",
     {
     mimetype: "application/x-subrip",
     fileName: fileName,
-    caption: `❑ Language: English\n${config().CAPTION}`,
+    caption: `彡 Language: English\n${config().CAPTION}`,
     quoted: m
     },
     "document"
@@ -329,11 +329,11 @@ kord({
 }, async (m, text) => {
         try {
         if (!text) return await m.send(`_*provide a query*_\n_example: ${prefix}play unstoppable_`)
-        m.react("⏰")
+        m.react("🔊")
         var ytsr = await yts(text)
         var ytsa = ytsr.videos[0]
         var dl = await ytaudio(ytsa.url)
-        var cap = `00:00 ───◁ㅤ ❚❚ ㅤ▷─── ${ytsa.duration.timestamp} ♡`
+        var cap = `alpha ⨺⃝Х sound 🔊 ${ytsa.duration.timestamp} ♡`
         m.react("")
         return await m.send(dl.url, {ptt: false,
             mimetype: 'audio/mpeg',
@@ -361,7 +361,7 @@ kord({
 }, async (m, text) => {
         try {
                 if (!text) return await m.send(`_*provide a query*_\n_example: ${prefix}video avengers doomsday trailer_`)
-                m.react("⏰")
+                m.react("🔊")
                 var ytsr = await yts(text)
                 var ytsd = ytsr.videos[0]
                 var dl = await ytvideo(ytsd.url)
@@ -391,11 +391,11 @@ kord({
 }, async (m, text) => {
         try {
         if (!text) return await m.send(`_*provide a query*_\n_example: ${prefix}play unstoppable_`)
-        m.react("⏰")
+        m.react("🔊")
         var ytsr = await yts(text)
         var ytsa = ytsr.videos[0]
         var dl = await ytaudio(ytsa.url)
-        var cap = `00:00 ───◁ㅤ ❚❚ ㅤ▷─── ${ytsa.duration.timestamp} ♡`
+        var cap = `alpha ⨺⃝Х sound 🔊 ${ytsa.duration.timestamp} ♡`
         m.react("")
         return await m.send(dl.url, {ptt: false,
             mimetype: 'audio/mpeg',
