@@ -62,33 +62,33 @@ kord({
       ).join('\n')
       const formattedCmds = await changeFont(cmdList, getRandomFont())
       
-      let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
+      let menu = `\`\`\`┌───── ⨺⃝Х ──────┐
  ✇ ▸ Category: ${actualType.toUpperCase()}
  ✇ ▸ Commands: ${types[actualType].length}
  ✇ ▸ Prefix: ${prefix}
-└──────═━┈┈━═──────┘\`\`\`
+└───────────────────┘\`\`\`
 ${readmore}
 
      ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─── ⨺⃝Х ───    ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+┕   ─── ⨺⃝Х ───   ┙ 
 
 Tip: Use ${prefix}menu to see all categories`
       
       const bodyContent = `     ┏ ${at} ┓ 
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─── ⨺⃝Х ───    ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ 
+┕   ─── ⨺⃝Х ───    ┙ 
 
 Tip: Use ${prefix}menu to see all categories`
       
       const styledBody = await changeFont(bodyContent, getRandomFont())
-      const final = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
+      const final = `\`\`\`┌────── ⨺⃝Х ──────┐
  ✇ ▸ Category: ${actualType.toUpperCase()}
  ✇ ▸ Commands: ${types[actualType].length}
  ✇ ▸ Prefix: ${prefix}
-└────────═━┈┈━═────────┘\`\`\`
+└──────────────────────┘\`\`\`
 ${readmore}
 
 ${styledBody}`
@@ -100,15 +100,11 @@ ${styledBody}`
     const uptime = await secondsToHms(process.uptime())
     const memoryUsage = format(os.totalmem() - os.freemem())
     
-    let menu = `\`\`\`┌────═━┈ ${config().BOT_NAME} ┈━═────┐
- ✇ ▸ Owner: ${config().OWNER_NAME}
- ✇ ▸ User: ${m.pushName}
- ✇ ▸ Plugins: ${commands.length}
- ✇ ▸ Uptime: ${uptime}
- ✇ ▸ Memory: ${memoryUsage}
- ✇ ▸ Version: v${version}
- ✇ ▸ Platform: ${m.client.platform()}
-└───────═━┈┈━═──────┘\`\`\`
+    let menu = `┌─────── ⨺⃝Х ───────┐
+ Owner: ${config().OWNER_NAME}
+ Name: ${config().BOT_NAME}
+ Prefix: . 
+└─────────────────┘
 ${readmore}
 
 `
@@ -121,16 +117,16 @@ ${readmore}
       const tty = await changeFont(type.toUpperCase(), "monospace")
       
       return ` ┏ ${tty} ┓
-┍   ─┉─ • ─┉─    ┑ 
+┍   ─── ⨺⃝Х ───   ┑ 
 ${formattedCmds}
-┕    ─┉─ • ─┉─   ┙ `
+┕   ─── ⨺⃝Х  ───  ┙ `
     })
 
     const resolvedCategoryList = await Promise.all(categoryList)
     menu += resolvedCategoryList.join('\n\n')
 
 
-    menu += `\n\nTip: Use ${prefix}menu [category] for specific commands`
+    menu += `\n\nINFO:most cmds are not finished yet ⨺⃝Х team are not done they will show you more _*fore more info follow are channel*_`
 
     const final = menu.trim()
  try {
