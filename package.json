@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/M3264/Kord-Ai.git"
+    "url": "git+https://github.com/mudauthendo2011-hub/MD-K.git"
   },
   "keywords": [
     "whatsapp-bot"
@@ -19,9 +19,9 @@
   "author": "M3264",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/M3264/Kord-Ai/issues"
+    "url": "https://github.com/mudauthendo2011-hub/MD-K/issues"
   },
-  "homepage": "https://github.com/M3264/Kord-Ai#readme",
+  "homepage": "https://github.com/mudauthendo2011-hub/MD-Ki#readme",
   "dependencies": {
     "axios": "^0.27.2",
     "baileys": "7.0.0-rc.9",
