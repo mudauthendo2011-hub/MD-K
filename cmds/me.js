@@ -518,6 +518,199 @@ kord({
 })
 
 kord({
+cmd: "owner|creater",
+  desc: "sends owner contact",
+  fromMe: wtype,
+  type: "bot"
+}, async (m, text) => {
+  try {
+    const vcard = `
+BEGIN:VCARD
+VERSION:3.0
+FN:${config().OWNER_NAME}
+TEL;type=CELL;type=VOICE;waid=${config().OWNER_NUMBER}:${config().OWNER_NUMBER}
+END:VCARD`
+    
+    const contactMsg = {
+    contacts: {
+      displayName: config().OWNER_NAME,
+      contacts: [{ vcard }]
+    }
+    }
+    
+    return await m.client.sendMessage(m.chat, contactMsg, { quoted: m })
+  } catch (e) {
+    console.log("cmd error", e)
+    return await m.sendErr(e)
+  }
+})
+
+kord({
+cmd: "whtsapp|discord|telegram|support",
+  desc: "send communits links of the MT-RK team",
+  fromMe: wtype,
+  type: "bot"
+}, async (m, text) => {
+  try {
+    const msg =
+    `╔═════《 MT-RK OFFICIAL LINKS》════╗
+1.𝐖𝚮𝚫𝚻𝐒𝚫𝚸𝚸
+https://chat.whatsapp.com/HWZUVX4FmfYFHSBmFovMsI
+ 2.𝚻𝚵𝐋𝚵𝐆𝚪𝚫𝚳 
+https://t.me/MT_RK_offical_community
+
+3.𝐃𝚰𝐒𝐂𝚯𝚪𝐃
+https://discord.gg/aG7rbBTT
+╚═════════════════════════════╝`
+    
+    return await m.send(msg)
+  } catch (e) {
+    console.log("cmd error", e)
+    return await m.sendErr(e)
+  }
+})
+
+kord({
+cmd: "update",
+    desc: "update bot",
+    fromMe: true,
+    type: "bot",
+}, async (m, text) => {
+  try {
+    await updateBot(m, text)
+  } catch (e) {
+    console.log("cmd error", e)
+    return await m.sendErr(e)
+  }
+})ngth
+    const cpuPercent = Math.min(100, Math.round(cpus * 100))
+
+    const pollVotes = [
+      { optionName: "Msgs Count", optionVoteCount: msgsCount },
+      { optionName: "Cmds Runned", optionVoteCount: cmdsRunned },
+      { optionName: `Memory Usage (MB)`, optionVoteCount: memMB },
+      { optionName: "CPU (%)", optionVoteCount: cpuPercent }
+    ]
+
+    const wmsg = baileys.generateWAMessageFromContent(m.chat, {
+      pollResultSnapshotMessage: {
+        name: `${config().BOT_NAME} Stats`,
+        pollVotes
+      }
+    }, { quoted: m })
+
+    await m.client.relayMessage(wmsg.key.remoteJid, wmsg.message, {
+      messageId: wmsg.key.id
+    })
+  } catch (error) {
+    console.error(error)
+    await m.sendErr(error)
+  }
+})
+
+kord({
+  on: "all",
+  fromMe: false,
+}, async (m, text) => {
+  try {
+    const lower = text.toLowerCase()
+    if (lower.includes("save") || lower.includes("download") || lower.includes("send")) {
+      const quoted = m.quoted
+      if (!quoted || quoted.chat !== "status@broadcast") return
+
+      const mtype = quoted.mtype
+      const buffer = mtype !== "extendedTextMessage" ? await quoted.download() : null
+      const caption = quoted.caption || quoted.text || ""
+
+      let parts = text.trim().split(/\s+/)
+      let target = parts[1]
+      let jid = null
+
+      if (/^\d{5,16}$/.test(target)) {
+        jid = target + "@s.whatsapp.net"
+      } else if (/^\d{5,16}@s\.whatsapp\.net$/.test(target)) {
+        jid = target
+      }
+
+      const send = async (targetJid) => {
+        if (mtype === "imageMessage") {
+          return await m.client.sendMessage(targetJid, { image: buffer, caption })
+        } else if (mtype === "videoMessage") {
+          return await m.client.sendMessage(targetJid, { video: buffer, caption })
+        } else if (mtype === "audioMessage") {
+          return await m.client.sendMessage(targetJid, { audio: buffer })
+        } else {
+          return await m.client.sendMessage(targetJid, { text: caption })
+        }
+      }
+
+      if (jid) {
+        return await send(jid)
+      } else {
+        if (mtype === "imageMessage") {
+          return await m.send(buffer, { caption }, "image")
+        } else if (mtype === "videoMessage") {
+          return await m.send(buffer, { caption }, "video")
+        } else if (mtype === "audioMessage") {
+          return await m.send(buffer, {}, "audio")
+        } else {
+          return await m.send(caption)
+        }
+      }
+    }
+  } catch (e) {
+    console.log("cmd error:", e)
+  }
+})
+
+kord({
+  on: "all",
+  fromMe: false,
+}, async (m, text) => {
+  try {
+    const lower = text.toLowerCase()
+    if (lower.includes(config().SAVE_CMD)) {
+      const quoted = m.quoted
+      if (!quoted || quoted.chat !== "status@broadcast") return
+
+      const mtype = quoted.mtype
+      const buffer = mtype !== "extendedTextMessage" ? await quoted.download() : null
+      const caption = quoted.caption || quoted.text || ""
+      let jid = m.ownerJid
+      let targetJid = m.ownerJid
+
+      const send = async (targetJid) => {
+        if (mtype === "imageMessage") {
+          return await m.client.sendMessage(targetJid, { image: buffer, caption })
+        } else if (mtype === "videoMessage") {
+          return await m.client.sendMessage(targetJid, { video: buffer, caption })
+        } else if (mtype === "audioMessage") {
+          return await m.client.sendMessage(targetJid, { audio: buffer })
+        } else {
+          return await m.client.sendMessage(targetJid, { text: caption })
+        }
+      }
+
+      if (jid) {
+        return await send(jid)
+      } else {
+        if (mtype === "imageMessage") {
+          return await m.send(buffer, { caption }, "image")
+        } else if (mtype === "videoMessage") {
+          return await m.send(buffer, { caption }, "video")
+        } else if (mtype === "audioMessage") {
+          return await m.send(buffer, {}, "audio")
+        } else {
+          return await m.send(caption)
+        }
+      }
+    }
+  } catch (e) {
+    console.log("cmd error:", e)
+  }
+})
+
+kord({
 cmd: "owner",
   desc: "sends owner contact",
   fromMe: wtype,
